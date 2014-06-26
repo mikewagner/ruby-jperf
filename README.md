@@ -1,6 +1,6 @@
 # Ruby::Jperf
 
-TODO: Write a gem description
+Test runner for executing ruby-jmeter files
 
 ## Installation
 
