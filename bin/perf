@@ -1,2 +1,29 @@
 #!/usr/bin/env ruby
+require 'optparse'
+
+$:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
+require 'ruby-jperf'
+
+options = {}
+parser  = OptionParser.new do |opts|
+
+  opts.on("-cCONFIG", "--config-file CONFIG", "jMeter configuration file") do |x|
+    options[:jmeter_config] = x
+  end
+
+  opts.on("-p", "--pattern", "File name pattern") do |x|
+    options[:filename_pattern] = x
+  end
+
+  opts.on('-h', '--help', 'Display help' ) do
+    puts parser
+    exit 0
+  end
+
+end
+
+parser.parse!
+options[:paths] = ARGV
+
+RubyJperf::Runner.new(RubyJperf::Configuration.new(options)).run
 

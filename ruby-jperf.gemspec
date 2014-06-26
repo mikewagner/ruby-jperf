@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ruby/jperf/version'
+require 'ruby-jperf/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ruby-jperf"
-  spec.version       = Ruby::Jperf::VERSION
+  spec.version       = RubyJperf::VERSION
   spec.authors       = ["Mike Wagner"]
   spec.email         = ["mwagner@digitalinsites.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Tool for executing Ruby-Jmeter scripts}
+  spec.description   = %q{Tool for executing Ruby-Jmeter scripts}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "ruby-jmeter"
 end
