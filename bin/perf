@@ -1,29 +1,39 @@
 #!/usr/bin/env ruby
 require 'optparse'
+require 'yaml'
 
 $:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
 require 'ruby-jperf'
 
-options = {}
-parser  = OptionParser.new do |opts|
-
-  opts.on("-cCONFIG", "--config-file CONFIG", "jMeter configuration file") do |x|
-    options[:jmeter_config] = x
+options, params = {}, {}
+parser = OptionParser.new do |opts|
+  opts.on("-cCONFIG", "--config CONFIG", "Configuration file") do |x|
+    params['config_file'] = x
   end
 
-  opts.on("-p", "--pattern", "File name pattern") do |x|
-    options[:filename_pattern] = x
+  opts.on("-pPATTERN", "--pattern PATTERN", "Filename pattern") do |x|
+    params['filename_pattern'] = x
   end
 
   opts.on('-h', '--help', 'Display help' ) do
     puts parser
     exit 0
   end
-
 end
 
 parser.parse!
-options[:paths] = ARGV
+params['paths'] = ARGV
 
+config_file = params['config_file']
+if config_file
+  if File.exist?( config_file )
+    config = YAML.load( File.read(config_file) )
+    options = config if config
+  else
+    raise "Unable to find jmeter configuration file: #{config_file}"
+  end
+end
+
+options.merge!(params)
 RubyJperf::Runner.new(RubyJperf::Configuration.new(options)).run
 

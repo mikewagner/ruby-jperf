@@ -1,9 +1,12 @@
+require 'yaml'
+
 module RubyJperf
   class Configuration
 
-    attr_accessor :paths,
-                  :filename_pattern,
-                  :jmeter_path
+    DEFAULT_FILE_PATTERN = '**/*_perf.rb'
+
+    attr_accessor :paths, :host, :port, :jmeter,
+                  :filename_pattern
 
     class << self
       def configure &block
@@ -14,16 +17,19 @@ module RubyJperf
     end
 
     def initialize options = {}
+      options.symbolize_keys!
+      @filename_pattern = options[:filename_pattern] || DEFAULT_FILE_PATTERN
       @paths            = options[:paths] || []
-      @jmeter_path      = options[:jmeter_path] || '/usr/local/bin/jmeter/bin/'
-      @filename_pattern = options[:filename_pattern] || '**/*_perf.rb'
+      @host             = options[:host]
+      @port             = options[:port]
+      @jmeter           = options[:jmeter]
     end
 
     def files_to_run
       results = []
       paths.each do |path|
         if File.directory?(path)
-          filename_pattern.split(",").each do |pattern|
+          filename_pattern.split(',').each do |pattern|
             results += Dir[File.expand_path("#{path}/#{pattern.strip}")]
           end
         elsif File.file?(path)

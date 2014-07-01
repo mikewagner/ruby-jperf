@@ -1,0 +1,9 @@
+host: localhost
+port: 3000
+protocol: 'http'
+jmeter:
+  path: '/Users/mwagner/development/jmeter/bin/'
+  file: 'test.jmx'
+  log: 'test.log'
+  jtl: 'test.jtl'
+  gui: false

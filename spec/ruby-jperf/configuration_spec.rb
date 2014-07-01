@@ -11,10 +11,6 @@ describe RubyJperf::Configuration do
         expect(config.paths).to eq([])
       end
 
-      it 'defaults jmeter path' do
-        expect(config.jmeter_path).to eq('/usr/local/bin/jmeter/bin/')
-      end
-
       it 'defaults filename pattern' do
         expect(config.filename_pattern).to eq('**/*_perf.rb')
       end
@@ -32,12 +28,8 @@ describe RubyJperf::Configuration do
         expect(config.paths).to eq('examples')
       end
 
-      it 'sets jmeter path' do
-        expect(config.jmeter_path).to eq('/usr/share/bin/jmeter/')
-      end
-
       it 'sets filename pattern path' do
-        expect(config.jmeter_path).to eq('/usr/share/bin/jmeter/')
+        expect(config.filename_pattern).to eq('**/*_foo.rb')
       end
     end
 
@@ -45,7 +37,6 @@ describe RubyJperf::Configuration do
       subject(:config) do
         RubyJperf::Configuration.configure do |config|
           config.paths = 'examples'
-          config.jmeter_path = '/usr/share/bin/jmeter/'
           config.filename_pattern = '**/*_foo.rb'
         end
       end
@@ -53,12 +44,8 @@ describe RubyJperf::Configuration do
         expect(config.paths).to eq('examples')
       end
 
-      it 'sets jmeter path' do
-        expect(config.jmeter_path).to eq('/usr/share/bin/jmeter/')
-      end
-
       it 'sets filename pattern path' do
-        expect(config.jmeter_path).to eq('/usr/share/bin/jmeter/')
+        expect(config.filename_pattern).to eq('**/*_foo.rb')
       end
     end
   end

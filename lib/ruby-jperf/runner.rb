@@ -10,6 +10,11 @@ module RubyJperf
     def run
       config.files_to_run.each do |file|
         code = File.read(file)
+        plan = test name: 'Performance Testing' do
+          eval(code)
+        end
+
+        plan.run(config.jmeter)
       end 
     end
 
