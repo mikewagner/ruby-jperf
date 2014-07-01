@@ -5,7 +5,7 @@ module RubyJperf
 
     DEFAULT_FILE_PATTERN = '**/*_perf.rb'
 
-    attr_accessor :paths, :host, :port, :jmeter,
+    attr_accessor :paths, :host, :port, :jmeter, :title,
                   :filename_pattern
 
     class << self
@@ -19,6 +19,7 @@ module RubyJperf
     def initialize options = {}
       options.symbolize_keys!
       @filename_pattern = options[:filename_pattern] || DEFAULT_FILE_PATTERN
+      @title            = options[:title] || "JPerf Run #{Time.now}"
       @paths            = options[:paths] || []
       @host             = options[:host]
       @port             = options[:port]

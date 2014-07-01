@@ -14,6 +14,10 @@ describe RubyJperf::Configuration do
       it 'defaults filename pattern' do
         expect(config.filename_pattern).to eq('**/*_perf.rb')
       end
+
+      it 'defaults title' do
+        expect(config.title).to match(/^JPerf Run/)
+      end
     end
 
     context 'with options' do
@@ -21,6 +25,7 @@ describe RubyJperf::Configuration do
       subject(:config) {
         RubyJperf::Configuration.new(:paths => 'examples',
                                      :jmeter_path => '/usr/share/bin/jmeter/',
+                                     :title => 'This is the title',
                                      :filename_pattern => '**/*_foo.rb')
       }
 
@@ -31,6 +36,10 @@ describe RubyJperf::Configuration do
       it 'sets filename pattern path' do
         expect(config.filename_pattern).to eq('**/*_foo.rb')
       end
+
+      it 'sets title' do
+        expect(config.title).to eq('This is the title')
+      end
     end
 
     context 'initializing with block' do
@@ -38,6 +47,7 @@ describe RubyJperf::Configuration do
         RubyJperf::Configuration.configure do |config|
           config.paths = 'examples'
           config.filename_pattern = '**/*_foo.rb'
+          config.title = 'This is a test title'
         end
       end
       it 'sets paths' do
@@ -46,6 +56,10 @@ describe RubyJperf::Configuration do
 
       it 'sets filename pattern path' do
         expect(config.filename_pattern).to eq('**/*_foo.rb')
+      end
+
+      it 'sets title' do
+        expect(config.title).to eq('This is a test title')
       end
     end
   end

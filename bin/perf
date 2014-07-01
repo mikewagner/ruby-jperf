@@ -11,6 +11,10 @@ parser = OptionParser.new do |opts|
     params['config_file'] = x
   end
 
+  opts.on("-tTITLE", "--title TITLE", "The title of the performance run") do |x|
+    params['title'] = x
+  end
+
   opts.on("-pPATTERN", "--pattern PATTERN", "Filename pattern") do |x|
     params['filename_pattern'] = x
   end
