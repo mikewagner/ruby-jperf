@@ -23,7 +23,7 @@ module RubyJperf
       @paths            = options[:paths] || []
       @host             = options[:host]
       @port             = options[:port]
-      @jmeter           = options[:jmeter]
+      @jmeter           = options[:jmeter].symbolize_keys
     end
 
     def files_to_run
