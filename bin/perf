@@ -19,6 +19,10 @@ parser = OptionParser.new do |opts|
     params['filename_pattern'] = x
   end
 
+  opts.on("-g", "--gui", "Load jmeter client") do
+    params['gui'] = true
+  end
+
   opts.on('-h', '--help', 'Display help' ) do
     puts parser
     exit 0
@@ -39,5 +43,5 @@ if config_file
 end
 
 options.merge!(params)
-RubyJperf::Runner.new(RubyJperf::Configuration.new(options)).run
+RubyJperf.configure(options).run
 
