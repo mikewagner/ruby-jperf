@@ -15,7 +15,7 @@ module RubyJperf
       results = []
       configuration.paths.each do |path|
         if File.directory?(path)
-          filename_pattern.split(',').each do |pattern|
+          configuration.filename_pattern.split(',').each do |pattern|
             results += Dir[File.expand_path("#{path}/#{pattern.strip}")]
           end
         elsif File.file?(path)
@@ -28,14 +28,16 @@ module RubyJperf
     end
 
     def run
+      tests = []
       files_to_run.each do |file|
-        code = File.read(file)
-        plan = test name: configuration.title do
-          eval(code)
-        end
+        tests << File.read(file)
+      end
 
-        plan.run(configuration.jmeter)
-      end 
+      plan = test name: configuration.title do
+        eval(tests.join("\n"))
+      end
+
+      plan.run(configuration.jmeter)
     end
 
   end
