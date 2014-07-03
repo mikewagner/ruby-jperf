@@ -5,7 +5,12 @@ module RubyJperf
 
     DEFAULT_FILE_PATTERN = '**/*_perf.rb'
 
-    attr_accessor :paths, :host, :port, :jmeter, :title,
+    attr_accessor :paths,
+                  :host,
+                  :port,
+                  :jmeter,
+                  :title,
+                  :gui,
                   :filename_pattern
 
     def initialize options = {}, &block
@@ -16,6 +21,7 @@ module RubyJperf
       @host             = options.fetch(:host, nil)
       @port             = options.fetch(:port, nil)
       @jmeter           = options.fetch(:jmeter, {}).symbolize_keys
+      @jmeter[:gui]     = options[:gui] if options.key?(:gui)
       yield self if block_given?
     end
 
